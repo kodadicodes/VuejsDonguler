@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <!-- v-for, Vue.js'te dizileri veya nesneleri döngüye alarak dinamik içerik oluşturmayı sağlayan bir direktiftir. -->
+        <li v-for="karakter in karakterler">{{karakter}}</li>
+        <!-- Bu Vue.js kodu, "karakterler" adlı bir dizi içindeki her öğe için bir liste elemanı oluşturur ve her liste elemanına dizideki ilgili "karakter"i yerleştirir. -->
+      </ul>
+
+      <ul>
+        <li v-for="(ozellik, index) in ozellikler">
+          {{index}}. {{ozellik.name}} - {{ozellik.age}}
+        </li>
+      </ul>
+
+      <!-- <template> HTML etiketi, Vue.js bileşenlerinde kullanılan bir yapıdır ve kullanıcı arayüzünü tanımlayan, ancak DOM'a doğrudan gönderilmeyen bir blok içeriği içerir -->
+      <template v-for="(ozellik, index) in ozellikler">
+        <h5>{{index}}. {{ozellik.name}}</h5>
+        <span>{{ozellik.age}}</span>
+      </template>
+      <!-- bu etiketin içindekiler DOM'da (console'da) görünür ama kendi görünmez. -->
+
+      <template v-for="(ozellik, index) in ozellikler">
+        <template v-for="(value, key) in ozellik">
+            <p>{{key}}: {{value}}</p>
+        </template>
+      </template>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            karakterler: ["Adnan", "Bihter", "Behlül", "Matmazel"],
+            ozellikler: [
+              { name: "Adnan", age: 55 },
+              { name: "Bihter", age: 28 },
+              { name: "Behlül", age: 28 },
+              { name: "Matmazel", age: 35 },
+            ],
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
